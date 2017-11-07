@@ -11,18 +11,42 @@ public class BrickBreaker : MonoBehaviour {
 
     public GameObject particle;
 
+    int brickHealth = 50;
+    int subtractHealth = 10;
+
+
 	// Update is called once per frame
-	void Update () {
-        if (Input.touchCount >0)
+	void Update () { 
+        if (particle.GetComponent<Collider>().enabled)
         {
-            for (int i = 0; i < Input.touchCount; i++)
+            if (Input.touchCount > 0)
             {
-                if (Input.GetTouch(i).phase == TouchPhase.Began)
+                for (int i = 0; i < Input.touchCount; i++)
                 {
-                    Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(i).position);
-                    if (Physics.Raycast(ray))
+                    if (Input.GetTouch(i).phase == TouchPhase.Began)
                     {
-                        Destroy(particle);
+                        Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(i).position);
+
+                        Vector3 touchPos = new Vector3(ray.origin.x, ray.origin.y, ray.origin.z);
+
+                        RaycastHit hitInformation;
+
+                        Debug.Log(ray);
+
+                        if (Physics.Raycast(ray, out hitInformation, 10))
+                        {
+                            Debug.Log(hitInformation.collider.name);
+                            Debug.Log(particle.transform.position);
+                            if (hitInformation.collider.name == particle.name)
+                            {
+                                brickHealth -= subtractHealth;
+                                if (brickHealth == 0)
+                                {
+                                    Destroy(particle);
+                                    brickHealth = 50;
+                                }
+                            }
+                        }
                     }
                 }
             }

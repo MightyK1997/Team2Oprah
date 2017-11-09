@@ -17,7 +17,7 @@ public class BrickBreaker : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () { 
-        if (particle.GetComponent<Collider>().enabled)
+        if (particle.layer == 8)
         {
             if (Input.touchCount > 0)
             {
@@ -31,18 +31,26 @@ public class BrickBreaker : MonoBehaviour {
 
                         RaycastHit hitInformation;
 
-                        Debug.Log(ray);
-
                         if (Physics.Raycast(ray, out hitInformation, 10))
                         {
-                            Debug.Log(hitInformation.collider.name);
-                            Debug.Log(particle.transform.position);
                             if (hitInformation.collider.name == particle.name)
                             {
                                 brickHealth -= subtractHealth;
                                 if (brickHealth == 0)
                                 {
+                                    Debug.Log(Random.value);
+                                    if (Mathf.Round((Random.value)*100) % 5 == 0)
+                                    {
+                                        ArtifactPopper(particle.transform.position);
+                                    }
+                                    else if (Mathf.Round((Random.value)*100) % 3 == 0)
+                                    {
+                                        EnemySpawn(particle.transform.position);
+                                    }
                                     Destroy(particle);
+
+                                    
+
                                     brickHealth = 50;
                                 }
                             }
@@ -52,4 +60,17 @@ public class BrickBreaker : MonoBehaviour {
             }
         }
 	}
+
+    void ArtifactPopper(Vector3 i_ParticlePosition)
+    {
+        GameObject go = GameObject.Find("ArtifactCube");
+        Instantiate(go, i_ParticlePosition, new Quaternion(0,0,0,0));
+        //go.transform.position = i_ParticlePosition;
+    }
+
+    void EnemySpawn(Vector3 i_ParticlePosition)
+    {
+        GameObject go = GameObject.Find("ArtifactCube");
+        Instantiate(go, i_ParticlePosition, new Quaternion(0, 0, 0, 0));
+    }
 }

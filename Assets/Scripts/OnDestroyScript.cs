@@ -29,14 +29,16 @@ public class OnDestroyScript : MonoBehaviour {
             {
                 if(item.name == "Cube (1)" || item.name == "Cube (2)" || item.name == "Cube (3)")
                 {
-                    item.GetComponent<Collider>().enabled = true;
+                    item.layer = 8;
+                    //item.GetComponent<Collider>().enabled = true;
                 }
             }
             if (cube.name == "Cube (3)")
             {
                 if (item.name == "Cube (4)" || item.name == "Cube (5)" || item.name == "Cube (6)" || item.name == "Cube (7)")
                 {
-                    item.GetComponent<Collider>().enabled = true;
+                    item.layer = 8;
+                    //item.GetComponent<Collider>().enabled = true;
                 }
             }
         }

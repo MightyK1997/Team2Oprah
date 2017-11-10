@@ -4,10 +4,17 @@ using UnityEngine;
 
 public class PlayerControlLeft : MonoBehaviour
 {
+    private Animator animController;
     public void MovePlayer()
     {
-        GameObject player = GameObject.Find("PlayerCube");
-        player.transform.position += new Vector3(-0.5f, 0, 0);
+        GameObject player = GameObject.Find("Player");
+        Debug.Log(player.transform.position.x);
+        animController = player.GetComponent<Animator>();
+        animController.SetTrigger("PlayerWalking");
+        if (player.transform.position.x > -5)
+        {
+            player.transform.position -= new Vector3(1f, -1f, 0);
+        }
     }
 
     //private Vector2 initialTouchPosition = -Vector2.one;

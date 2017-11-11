@@ -9,11 +9,23 @@ public class PlayerControlRight : MonoBehaviour {
     public void MovePlayer()
     {
         GameObject player = GameObject.Find("Player");
-        animController = player.GetComponent<Animator>();
-        animController.SetTrigger("PlayerWalking");
-        if (player.transform.position.x < 7)
+        Ray ray = new Ray(player.transform.position, Vector3.left);
+        RaycastHit hit;
+        bool isHit = Physics.Raycast(ray, out hit);
+        if (isHit)
         {
-            player.transform.position += new Vector3(1f, 1f, 0);
+            if (hit.distance < 1)
+            {
+            }
+            else if (hit.distance > 1)
+            {
+                animController = player.GetComponent<Animator>();
+                animController.SetTrigger("PlayerWalking");
+                if (player.transform.position.x < 6.9995f)
+                {
+                    player.transform.position += new Vector3(1f, 0f, 0);
+                }
+            }
         }
     }
 }

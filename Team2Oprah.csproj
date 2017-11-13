@@ -87,7 +87,10 @@
     <Compile Include="Assets\Scripts\OnDestroyScript.cs" />
     <Compile Include="Assets\Scripts\PlayerControlLeft.cs" />
     <Compile Include="Assets\Scripts\PlayerControlRight.cs" />
+    <Compile Include="Assets\Scripts\ShowBirds.cs" />
     <Compile Include="Assets\Scripts\ShowMoney.cs" />
+    <Compile Include="Assets\Scripts\ShowSkins.cs" />
+    <Compile Include="Assets\Scripts\ShowTheOriginalScreen.cs" />
     <Compile Include="Assets\Scripts\SoundManager.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

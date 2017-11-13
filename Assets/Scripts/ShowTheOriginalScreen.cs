@@ -3,21 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MicroTransactionsScript : MonoBehaviour {
+public class ShowTheOriginalScreen : MonoBehaviour {
 
     Canvas[] canvasList;
-    Canvas UICanvas;
+    public Canvas UICanvas;
     public Canvas microCanvas;
 
-	// Use this for initialization
-	void Start () {
-        microCanvas.enabled = false;
+    // Use this for initialization
+    void Start () {
 	}
-	
-	// Update is called once per frame
-	public void OnClickMethod () {
+
+    // Update is called once per frame
+    public void OnClick () {
         canvasList = Canvas.FindObjectsOfType<Canvas>();
-        Debug.Log(canvasList);
         foreach (var item in canvasList)
         {
             Debug.Log(item);
@@ -31,10 +29,8 @@ public class MicroTransactionsScript : MonoBehaviour {
                 microCanvas = item.GetComponent<Canvas>();
             }
         }
-
-        UICanvas.enabled = false;
-        microCanvas.enabled = true;
-        microCanvas.GetComponent<CanvasRenderer>().SetAlpha(500000);
-        microCanvas.GetComponent<CanvasRenderer>().SetColor(Color.black);
+        microCanvas.enabled = false;
+        UICanvas.enabled = true;
     }
 }
+

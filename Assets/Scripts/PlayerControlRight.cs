@@ -27,5 +27,14 @@ public class PlayerControlRight : MonoBehaviour {
                 }
             }
         }
+        else
+        {
+            animController = player.GetComponent<Animator>();
+            animController.SetTrigger("PlayerWalking");
+            if (player.transform.position.x < 6.9995f)
+            {
+                player.transform.position += new Vector3(1f, 0f, 0);
+            }
+        }
     }
 }

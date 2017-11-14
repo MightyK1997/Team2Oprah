@@ -8,9 +8,7 @@ public class OnDestroyScript : MonoBehaviour {
 
     public static int battery = 100;
 
-    GameObject healthSlider;
 
-    Image healthSliderImage;
 
 	// Use this for initialization
 	void Start () {
@@ -26,14 +24,8 @@ public class OnDestroyScript : MonoBehaviour {
 
     private void OnDestroy()
     {
-        healthSlider = GameObject.Find("HealthBarImage");
-        healthSliderImage = healthSlider.GetComponent<Image>();
-        battery -= 2;
-        if (battery % 10 == 0)
-        {
-            string spriteName = "MainBar" + (battery / 10).ToString();
-            healthSliderImage.sprite = Resources.Load<Sprite>("HealthBarImages/" + spriteName);
-        }
+        battery -= 1;
+
         foreach (var item in allCubes)
         {
             if (cube.name == "Cube")
@@ -86,16 +78,51 @@ public class OnDestroyScript : MonoBehaviour {
                     item.layer = 8;
                 }
             }
-            if (cube.name == "Cube (58)")
+            if (cube.name == "Cube (63)")
             {
                 if (item.layer == 18)
                 {
                     item.layer = 8;
                 }
             }
-            if (cube.name == "Cube (68)")
+            if (cube.name == "Cube (80)")
             {
                 if (item.layer == 19)
+                {
+                    item.layer = 8;
+                }
+            }
+            if (cube.name == "Cube (99)")
+            {
+                if (item.layer == 20)
+                {
+                    item.layer = 8;
+                }
+            }
+            if (cube.name == "Cube (120)")
+            {
+                if (item.layer == 21)
+                {
+                    item.layer = 8;
+                }
+            }
+            if (cube.name == "Cube (143)")
+            {
+                if (item.layer == 22)
+                {
+                    item.layer = 8;
+                }
+            }
+            if (cube.name == "Cube (168)")
+            {
+                if (item.layer == 23)
+                {
+                    item.layer = 8;
+                }
+            }
+            if (cube.name == "Cube (195)")
+            {
+                if (item.layer == 24)
                 {
                     item.layer = 8;
                 }

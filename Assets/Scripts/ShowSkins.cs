@@ -4,21 +4,22 @@ using UnityEngine;
 
 public class ShowSkins : MonoBehaviour {
 
-    GameObject skinsPanel;
-    GameObject birdsPanel;
+    public GameObject skinsPanel;
+    public GameObject birdsPanel;
 
     // Use this for initialization
     void Start()
     {
-        skinsPanel = GameObject.Find("SkinsPanel");
+        //skinsPanel = GameObject.Find("SkinsPanel");
         skinsPanel.SetActive(false);
     }
 
     // Update is called once per frame
     public void OnClick()
     {
-        skinsPanel = GameObject.Find("SkinsPanel");
-        birdsPanel = GameObject.Find("BirdsPanel");
+        //skinsPanel = GameObject.Find("SkinsPanel");
+        //birdsPanel = GameObject.Find("BirdsPanel");
+        //Debug.Log(skinsPanel + "" + birdsPanel);
         if (!birdsPanel || (!birdsPanel.activeSelf))
         {
             skinsPanel.SetActive(true);
@@ -28,6 +29,5 @@ public class ShowSkins : MonoBehaviour {
             birdsPanel.SetActive(false);
             skinsPanel.SetActive(true);
         }
-        
     }
 }

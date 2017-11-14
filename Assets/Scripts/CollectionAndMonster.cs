@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class CollectionAndMonster : MonoBehaviour {
 
@@ -22,8 +23,7 @@ public class CollectionAndMonster : MonoBehaviour {
         if (col.gameObject.tag == "Artifact")
         {
             MiddleFunction();
-            money += 50;
-            Destroy(col.gameObject);
+            SceneManager.LoadScene("WinScene");
         }
         else if (col.gameObject.tag == "Enemy")
         {
@@ -32,9 +32,6 @@ public class CollectionAndMonster : MonoBehaviour {
             Destroy(col.gameObject);
         }
     }
-
-
-
     void MiddleFunction()
     {
         E_Wait();

@@ -5,19 +5,20 @@ using UnityEngine.UI;
 
 public class ShowBirds : MonoBehaviour {
 
-    GameObject birdsPanel;
-    GameObject skinsPanel;
+    public GameObject birdsPanel;
+    public GameObject skinsPanel;
 
 	// Use this for initialization
 	void Start () {
-        birdsPanel = GameObject.Find("BirdsPanel");
+        //birdsPanel = GameObject.Find("BirdsPanel");
         birdsPanel.SetActive(false);
     }
 
     // Update is called once per frame
     public void OnClick() {
-        birdsPanel = GameObject.Find("BirdsPanel");
-        skinsPanel = GameObject.Find("SkinsPanel");
+        //birdsPanel = GameObject.Find("BirdsPanel");
+        //skinsPanel = GameObject.Find("SkinsPanel");
+        //Debug.Log(skinsPanel + "" + birdsPanel);
         if (!skinsPanel || (!skinsPanel.activeSelf))
         {
             birdsPanel.SetActive(true);

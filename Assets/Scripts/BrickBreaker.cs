@@ -43,28 +43,6 @@ public class BrickBreaker : MonoBehaviour {
                             if (hitInformation.collider.name == particle.name)
                             {
                                 PlayerMovement(hitInformation);
-                                animController.SetTrigger("DrillingTrigger");
-                                SoundManager.instance.playMusic(drillingClip);
-                                brickHealth -= subtractHealth;
-                                string materialName = "Stone_texture_" + (brickHealth / 10).ToString();
-                                particle.GetComponent<MeshRenderer>().material = Resources.Load<Material>("Stone/Materials/" + materialName);
-                                if (brickHealth == 0)
-                                {
-                                    if (Mathf.Round((Random.value) * 100) % 5 == 0)
-                                    {
-                                        ArtifactPopper(particle.transform.position);
-                                    }
-                                    else if (Mathf.Round((Random.value) * 100) % 3 == 0)
-                                    {
-                                        EnemySpawn(particle.transform.position);
-                                    }
-                                    Destroy(particle);
-                                    SoundManager.instance.playMusic(brickBreakingClip);
-
-
-
-                                    brickHealth = 50;
-                                }
                             }
                         }
                     }
@@ -76,8 +54,7 @@ public class BrickBreaker : MonoBehaviour {
     void ArtifactPopper(Vector3 i_ParticlePosition)
     {
         GameObject go = GameObject.Find("ArtifactCube");
-        Instantiate(go, i_ParticlePosition, new Quaternion(0, 0, 0, 0));
-        //go.transform.position = i_ParticlePosition;
+        go.transform.position = new Vector3(Random.Range(-7, 7), Random.Range(-6, -9), -5);
     }
 
     void EnemySpawn(Vector3 i_ParticlePosition)
@@ -97,7 +74,7 @@ public class BrickBreaker : MonoBehaviour {
         {
             Debug.Log("Check for collision success");
             Debug.Log(hitInfo.distance);
-            if (hitInfo.distance < 1)
+            if (hitInfo.distance < 1 && (hitInfo.collider.name != particleHitInformation.collider.name))
             {
                 Debug.Log("Checking Horizontal");
                 Ray checkLeftRay = new Ray(player.transform.position, Vector3.left);
@@ -106,38 +83,61 @@ public class BrickBreaker : MonoBehaviour {
                 RaycastHit rightHit;
                 bool isleftHit = Physics.Raycast(checkLeftRay, out leftHIt);
                 bool isRightHit = Physics.Raycast(checkRightRay, out rightHit);
-
                 if (isleftHit || isRightHit)
                 {
+                    Debug.Log(isRightHit);
                     Debug.Log("Check if horizontal");
-                    if (leftHIt.distance < 1 || rightHit.distance < 1)
-                    {
+                    Debug.Log(leftHIt.distance + "       " + rightHit.distance);
+                    if ((leftHIt.distance > 0 && leftHIt.distance < 1) || (rightHit.distance > 0 && rightHit.distance < 1))
+                    { 
                         Debug.Log("InTestHorizontal");
                         Vector3 testHorizontalPosition = player.transform.position + new Vector3(0, 1, 0);
                         Ray moveVerticalRightRay = new Ray(testHorizontalPosition, Vector3.right);
                         Ray moveVerticalLeftRay = new Ray(testHorizontalPosition, Vector3.left);
-                        RaycastHit testVerticalHit;
-                        bool cannotMoveToTopRight = Physics.Raycast(moveVerticalRightRay, out testVerticalHit);
-                        bool cannotMoveToTopLeft = Physics.Raycast(moveVerticalLeftRay, out testVerticalHit);
-                        if (cannotMoveToTopLeft)
+                        RaycastHit testVerticalRightHit;
+                        RaycastHit testVerticalLeftHit;
+                        bool cannotMoveToTopRight = Physics.Raycast(moveVerticalRightRay, out testVerticalRightHit);
+                        bool cannotMoveToTopLeft = Physics.Raycast(moveVerticalLeftRay, out testVerticalLeftHit);
+                        Debug.Log(cannotMoveToTopLeft + "      " + cannotMoveToTopRight);
+                        //Debug.Log(testVerticalRightHit.distance + "       " + testVerticalRightHit.distance);
+                        //Debug.Log(testVerticalLeftHit.distance + "       " + testVerticalLeftHit.distance);
+                        if (cannotMoveToTopLeft || cannotMoveToTopRight)
                         {
-                            Debug.Log("Cannot Move to top");
-                            if (testVerticalHit.distance > 2)
+                            if (!cannotMoveToTopLeft && (player.transform.position.x > particleHitInformation.transform.position.x))
                             {
-                                player.transform.position = player.transform.position + new Vector3(-1, 0, 0);
-
+                                player.transform.position = testHorizontalPosition + new Vector3(-1, 0, 0);
+                                BrickBreakerMethod();
+                            }
+                            else if (!cannotMoveToTopRight &&  (player.transform.position.x < particleHitInformation.transform.position.x))
+                            {
+                                player.transform.position = testHorizontalPosition + new Vector3(+1, 0, 0);
+                                BrickBreakerMethod();
+                            }
+                            else if (player.transform.position.x > particleHitInformation.transform.position.x)
+                            {
+                                if (testVerticalLeftHit.distance > 1)
+                                {
+                                    player.transform.position = testHorizontalPosition + new Vector3(-1, 0, 0);
+                                    BrickBreakerMethod();
+                                }
+                                else
+                                {
+                                    BrickBreakerMethod();
+                                }
+                            }
+                            else if(player.transform.position.x < particleHitInformation.transform.position.x)
+                            {
+                                if (testVerticalRightHit.distance > 1)
+                                {
+                                    player.transform.position = testHorizontalPosition + new Vector3(+1, 0, 0);
+                                    BrickBreakerMethod();
+                                }
+                                else
+                                {
+                                    BrickBreakerMethod();
+                                }
                             }
                         }
-                        else if(cannotMoveToTopRight)
-                        {
-                            Debug.Log("Cannot Move to top");
-                            if (testVerticalHit.distance > 2)
-                            {
-                                player.transform.position = player.transform.position + new Vector3(+1, 0, 0);
-
-                            }
-                        }
-                        else
                         {
                             Debug.Log("Can Move to the top");
                             if (isleftHit && isRightHit)
@@ -146,35 +146,70 @@ public class BrickBreaker : MonoBehaviour {
                                 {
                                     Debug.Log("IsLeftHit");
                                     player.transform.position = testHorizontalPosition + new Vector3(-1, 0, 0);
+                                    BrickBreakerMethod();
                                 }
                                 else
                                 {
                                     Debug.Log("IsRightHit");
                                     player.transform.position = testHorizontalPosition + new Vector3(+1, 0, 0);
+                                    BrickBreakerMethod();
                                 }
                             }
                             else if (isleftHit)
                             {
                                 Debug.Log("IsLeftHit");
                                 player.transform.position = testHorizontalPosition + new Vector3(-1, 0, 0);
+                                BrickBreakerMethod();
                             }
                             else if (isRightHit)
                             {
                                 Debug.Log("IsRightHit");
                                 player.transform.position = testHorizontalPosition + new Vector3(+1, 0, 0);
+                                BrickBreakerMethod();
                             }
+                        }
+                    }
+                    else
+                    {
+                        if (leftHIt.distance > 1 && (leftHIt.collider.name == particleHitInformation.collider.name))
+                        {
+                            player.transform.position = player.transform.position + new Vector3(-1, 0, 0);
+                        }
+                        else if (rightHit.distance > 1 && (rightHit.collider.name == particleHitInformation.collider.name))
+                        {
+                            player.transform.position = player.transform.position + new Vector3(1, 0, 0);
                         }
                     }
                 }
                 else
                 {
                     player.transform.position = particle.transform.position + Vector3.up;
+                    BrickBreakerMethod();
                 }
             }
             else
             {
-                
+                BrickBreakerMethod();
             }
+        }
+    }
+
+    void BrickBreakerMethod()
+    {
+        animController.SetTrigger("DrillingTrigger");
+        SoundManager.instance.playMusic(drillingClip);
+        brickHealth -= subtractHealth;
+        string materialName = "Stone_texture_" + (brickHealth / 10).ToString();
+        particle.GetComponent<MeshRenderer>().material = Resources.Load<Material>("Stone/Materials/" + materialName);
+        if (brickHealth == 0)
+        {
+            if (Mathf.Round((Random.value) * 100) % 3 == 0)
+            {
+                EnemySpawn(particle.transform.position);
+            }
+            Destroy(particle);
+            SoundManager.instance.playMusic(brickBreakingClip);
+            brickHealth = 30;
         }
     }
 }

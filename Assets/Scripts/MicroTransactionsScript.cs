@@ -17,11 +17,8 @@ public class MicroTransactionsScript : MonoBehaviour {
 	// Update is called once per frame
 	public void OnClickMethod () {
         canvasList = Canvas.FindObjectsOfType<Canvas>();
-        Debug.Log(canvasList);
         foreach (var item in canvasList)
         {
-            Debug.Log(item);
-            Debug.Log(item.GetComponent<Canvas>().name);
             if (item.GetComponent<Canvas>().name == "UI Canvas")
             {
                 UICanvas = item.GetComponent<Canvas>();

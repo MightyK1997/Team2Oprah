@@ -16,7 +16,6 @@ public class ShowHealthBar : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        Debug.Log(OnDestroyScript.battery);
         healthSlider = GameObject.Find("HealthBarImage");
         healthSliderImage = healthSlider.GetComponent<Image>();
         if (OnDestroyScript.battery % 10 == 0)

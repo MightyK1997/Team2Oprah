@@ -82,11 +82,12 @@
     <Compile Include="Assets\Scripts\CameraMovement.cs" />
     <Compile Include="Assets\Scripts\ChangeCanvasScript.cs" />
     <Compile Include="Assets\Scripts\CollectionAndMonster.cs" />
-    <Compile Include="Assets\Scripts\FinalLevelThingsScript.cs" />
     <Compile Include="Assets\Scripts\healthCalc.cs" />
     <Compile Include="Assets\Scripts\MicroTransactionsScript.cs" />
     <Compile Include="Assets\Scripts\OnDestroyScript.cs" />
     <Compile Include="Assets\Scripts\PlayerControlLeft.cs" />
+    <Compile Include="Assets\Scripts\PlayerControlNegZ.cs" />
+    <Compile Include="Assets\Scripts\PlayerControlPosZ.cs" />
     <Compile Include="Assets\Scripts\PlayerControlRight.cs" />
     <Compile Include="Assets\Scripts\PlayerPositionChange.cs" />
     <Compile Include="Assets\Scripts\ShowBirds.cs" />

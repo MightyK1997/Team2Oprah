@@ -58,7 +58,7 @@ public class BrickBreaker : MonoBehaviour {
 
     void EnemySpawn(Vector3 i_ParticlePosition)
     {
-        GameObject go = GameObject.Find("EnemyCube");
+        GameObject go = GameObject.Find("Mummy");
         Instantiate(go, i_ParticlePosition, new Quaternion(0, 0, 0, 0));
         //go.transform.position = i_ParticlePosition;
     }

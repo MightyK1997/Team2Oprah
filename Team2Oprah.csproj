@@ -90,7 +90,6 @@
     <Compile Include="Assets\Scripts\PlayerControlPosZ.cs" />
     <Compile Include="Assets\Scripts\PlayerControlRight.cs" />
     <Compile Include="Assets\Scripts\PlayerPositionChange.cs" />
-    <Compile Include="Assets\Scripts\ShowBirds.cs" />
     <Compile Include="Assets\Scripts\ShowHealthBar.cs" />
     <Compile Include="Assets\Scripts\ShowMoney.cs" />
     <Compile Include="Assets\Scripts\ShowSkins.cs" />

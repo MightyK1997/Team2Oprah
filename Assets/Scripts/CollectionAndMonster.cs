@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 public class CollectionAndMonster : MonoBehaviour {
 
     public static int money = 0;
+    private Animator animController;
+    
 
     // Use this for initialization
     void Start () {
@@ -20,10 +22,42 @@ public class CollectionAndMonster : MonoBehaviour {
 
     private void OnCollisionEnter(Collision col)
     {
+        GameObject go;
+        GameObject Image1;
+        Image image;
         if (col.gameObject.tag == "Artifact")
         {
-            MiddleFunction();
-            SceneManager.LoadScene("WinScene");
+            if (col.gameObject.name == "artifact_1")
+            {
+                go = col.gameObject;
+                animController = go.GetComponent<Animator>();
+                Image1 = GameObject.Find("Artifact1");
+                image = Image1.GetComponent<Image>();
+                image.sprite = Resources.Load<Sprite>("artifact_1");
+                animController.SetTrigger("Artifact1Trigger");
+
+                Destroy(go);
+            }
+            if (col.gameObject.name == "artifact_2")
+            {
+                go = col.gameObject;
+                animController = go.GetComponent<Animator>();
+                Image1 = GameObject.Find("Artifact1");
+                image = Image1.GetComponent<Image>();
+                image.sprite = Resources.Load<Sprite>("artifact_1");
+                animController.SetTrigger("Artifact2Trigger");
+                Destroy(go);
+            }
+            if (col.gameObject.name == "artifact_3")
+            {
+                go = col.gameObject;
+                animController = go.GetComponent<Animator>();
+                Image1 = GameObject.Find("Artifact1");
+                image = Image1.GetComponent<Image>();
+                image.sprite = Resources.Load<Sprite>("artifact_1");
+                animController.SetTrigger("Artifact3Trigger");
+                Destroy(go);
+            }
         }
         else if (col.gameObject.tag == "Enemy")
         {

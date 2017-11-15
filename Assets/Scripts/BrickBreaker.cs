@@ -12,7 +12,8 @@ public class BrickBreaker : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
-
+        player = GameObject.Find("Player");
+        animController = player.GetComponent<Animator>();
     }
 
     public GameObject particle;
@@ -24,8 +25,6 @@ public class BrickBreaker : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        player = GameObject.Find("Player");
-        animController = player.GetComponent<Animator>();
         if (particle.layer == 8)
         {
             if (Input.touchCount > 0)

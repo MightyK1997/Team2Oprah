@@ -8,7 +8,7 @@ public class CollectionAndMonster : MonoBehaviour {
 
     public static int money = 0;
     private Animator animController;
-    
+    static int count = 0;
 
     // Use this for initialization
     void Start () {
@@ -17,7 +17,10 @@ public class CollectionAndMonster : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+        if (count == 3)
+        {
+            SceneManager.LoadScene("WinScene");
+        }
 	}
 
     private void OnCollisionEnter(Collision col)
@@ -25,6 +28,8 @@ public class CollectionAndMonster : MonoBehaviour {
         GameObject go;
         GameObject Image1;
         Image image;
+        GameObject moneyThrower = GameObject.Find("MoneyParticles");
+        ParticleSystem moneyParticles = moneyThrower.GetComponent<ParticleSystem>();
         if (col.gameObject.tag == "Artifact")
         {
             if (col.gameObject.name == "artifact_1")
@@ -35,7 +40,9 @@ public class CollectionAndMonster : MonoBehaviour {
                 image = Image1.GetComponent<Image>();
                 image.sprite = Resources.Load<Sprite>("artifact_1");
                 animController.SetTrigger("Artifact1Trigger");
-
+                moneyParticles.Play();
+                money += 100000;
+                count++;
                 Destroy(go);
             }
             if (col.gameObject.name == "artifact_2")
@@ -46,6 +53,9 @@ public class CollectionAndMonster : MonoBehaviour {
                 image = Image1.GetComponent<Image>();
                 image.sprite = Resources.Load<Sprite>("artifact_1");
                 animController.SetTrigger("Artifact2Trigger");
+                moneyParticles.Play();
+                money += 100000;
+                count++;
                 Destroy(go);
             }
             if (col.gameObject.name == "artifact_3")
@@ -56,6 +66,9 @@ public class CollectionAndMonster : MonoBehaviour {
                 image = Image1.GetComponent<Image>();
                 image.sprite = Resources.Load<Sprite>("artifact_1");
                 animController.SetTrigger("Artifact3Trigger");
+                moneyParticles.Play();
+                money += 100000;
+                count++;
                 Destroy(go);
             }
         }

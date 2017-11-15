@@ -13,6 +13,6 @@ public class PlayerPositionChange : MonoBehaviour {
 	void Update () {
         GameObject player = GameObject.Find("Player");
         player.transform.position = new Vector3(Mathf.Round(player.transform.position.x), player.transform.position.y, player.transform.position.z);
-        player.transform.Rotate(0, 0, 0);
+        player.transform.rotation = Quaternion.identity;
 	}
 }

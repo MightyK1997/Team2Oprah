@@ -78,29 +78,40 @@ public class BrickBreaker : MonoBehaviour {
                 Debug.Log("Checking Horizontal");
                 Ray checkLeftRay = new Ray(player.transform.position, Vector3.left);
                 Ray checkRightRay = new Ray(player.transform.position, Vector3.right);
+                Ray checkFrontRay = new Ray(player.transform.position, Vector3.forward);
+                Ray checkBackRay = new Ray(player.transform.position, Vector3.back);
                 RaycastHit leftHIt;
                 RaycastHit rightHit;
+                RaycastHit frontHit;
+                RaycastHit backHit;
                 bool isleftHit = Physics.Raycast(checkLeftRay, out leftHIt);
                 bool isRightHit = Physics.Raycast(checkRightRay, out rightHit);
-                if (isleftHit || isRightHit)
+                bool isFrontHit = Physics.Raycast(checkFrontRay, out frontHit);
+                bool isBackHit = Physics.Raycast(checkBackRay, out backHit);
+                if (isleftHit || isRightHit || isFrontHit || isBackHit)
                 {
                     Debug.Log(isRightHit);
                     Debug.Log("Check if horizontal");
                     Debug.Log(leftHIt.distance + "       " + rightHit.distance);
-                    if ((leftHIt.distance > 0 && leftHIt.distance < 1) || (rightHit.distance > 0 && rightHit.distance < 1))
+                    if ((leftHIt.distance > 0 && leftHIt.distance < 1) || (rightHit.distance > 0 && rightHit.distance < 1) || (frontHit.distance > 0 && frontHit.distance < 1) || (backHit.distance > 0 && backHit.distance < 1))
                     { 
                         Debug.Log("InTestHorizontal");
                         Vector3 testHorizontalPosition = player.transform.position + new Vector3(0, 1, 0);
                         Ray moveVerticalRightRay = new Ray(testHorizontalPosition, Vector3.right);
                         Ray moveVerticalLeftRay = new Ray(testHorizontalPosition, Vector3.left);
+                        Ray moveVerticalTopRay = new Ray(testHorizontalPosition, Vector3.forward);
+                        Ray moveVerticalBackRay = new Ray(testHorizontalPosition, Vector3.back);
                         RaycastHit testVerticalRightHit;
                         RaycastHit testVerticalLeftHit;
+                        RaycastHit testVerticalForwardHit;
+                        RaycastHit testVerticalBackwardHit;
                         bool cannotMoveToTopRight = Physics.Raycast(moveVerticalRightRay, out testVerticalRightHit);
                         bool cannotMoveToTopLeft = Physics.Raycast(moveVerticalLeftRay, out testVerticalLeftHit);
-                        Debug.Log(cannotMoveToTopLeft + "      " + cannotMoveToTopRight);
+                        bool cannotMoveToTopForward = Physics.Raycast(moveVerticalTopRay, out testVerticalForwardHit);
+                        bool cannotMoveToTopBack = Physics.Raycast(moveVerticalBackRay, out testVerticalBackwardHit);
                         //Debug.Log(testVerticalRightHit.distance + "       " + testVerticalRightHit.distance);
                         //Debug.Log(testVerticalLeftHit.distance + "       " + testVerticalLeftHit.distance);
-                        if (cannotMoveToTopLeft || cannotMoveToTopRight)
+                        if (cannotMoveToTopLeft || cannotMoveToTopRight || cannotMoveToTopForward ||cannotMoveToTopBack)
                         {
                             if (!cannotMoveToTopLeft && (player.transform.position.x > particleHitInformation.transform.position.x))
                             {
@@ -110,6 +121,16 @@ public class BrickBreaker : MonoBehaviour {
                             else if (!cannotMoveToTopRight &&  (player.transform.position.x < particleHitInformation.transform.position.x))
                             {
                                 player.transform.position = testHorizontalPosition + new Vector3(+1, 0, 0);
+                                BrickBreakerMethod();
+                            }
+                            else if(!cannotMoveToTopBack && (player.transform.position.z > particleHitInformation.transform.position.z))
+                            {
+                                player.transform.position = testHorizontalPosition + new Vector3(0, 0, -1);
+                                BrickBreakerMethod();
+                            }
+                            else if(!cannotMoveToTopForward && (player.transform.position.z < particleHitInformation.transform.position.z))
+                            {
+                                player.transform.position = testHorizontalPosition + new Vector3(0, 0, 1);
                                 BrickBreakerMethod();
                             }
                             else if (player.transform.position.x > particleHitInformation.transform.position.x)
@@ -136,10 +157,35 @@ public class BrickBreaker : MonoBehaviour {
                                     BrickBreakerMethod();
                                 }
                             }
+                            else if(player.transform.position.z < particleHitInformation.transform.position.z)
+                            {
+                                if (testVerticalForwardHit.distance > 1)
+                                {
+                                    player.transform.position = testHorizontalPosition + new Vector3(0, 0, 1);
+                                    BrickBreakerMethod();
+                                }
+                                else
+                                {
+                                    BrickBreakerMethod();
+                                }
+                            }
+                            else if(player.transform.position.z > particleHitInformation.transform.position.z)
+                            {
+                                if (testVerticalBackwardHit.distance > 1)
+                                {
+                                    player.transform.position = testHorizontalPosition + new Vector3(0, 0, -1);
+                                    BrickBreakerMethod();
+                                }
+                                else
+                                {
+                                    BrickBreakerMethod();
+                                }
+                            }
+
                         }
                         {
                             Debug.Log("Can Move to the top");
-                            if (isleftHit && isRightHit)
+                            if (isleftHit && isRightHit && isFrontHit && isBackHit)
                             {
                                 if (leftHIt.collider.name == particleHitInformation.collider.name)
                                 {
@@ -147,23 +193,47 @@ public class BrickBreaker : MonoBehaviour {
                                     player.transform.position = testHorizontalPosition + new Vector3(-1, 0, 0);
                                     BrickBreakerMethod();
                                 }
-                                else
+                                else if(rightHit.collider.name == particleHitInformation.collider.name)
                                 {
                                     Debug.Log("IsRightHit");
                                     player.transform.position = testHorizontalPosition + new Vector3(+1, 0, 0);
                                     BrickBreakerMethod();
                                 }
+                                else if (frontHit.collider.name == particleHitInformation.collider.name)
+                                {
+                                    Debug.Log("isLeftHit");
+                                    player.transform.position = testHorizontalPosition + new Vector3(0, 0, 1);
+                                    BrickBreakerMethod();
+                                }
+                                else if (backHit.collider.name == particleHitInformation.collider.name)
+                                {
+                                    Debug.Log("isBackHit");
+                                    player.transform.position = testHorizontalPosition + new Vector3(0, 0, -1);
+                                    BrickBreakerMethod();
+                                }
                             }
-                            else if (isleftHit)
+                            else if (isleftHit && (leftHIt.collider.name == particleHitInformation.collider.name))
                             {
                                 Debug.Log("IsLeftHit");
                                 player.transform.position = testHorizontalPosition + new Vector3(-1, 0, 0);
                                 BrickBreakerMethod();
                             }
-                            else if (isRightHit)
+                            else if (isRightHit && (rightHit.collider.name == particleHitInformation.collider.name))
                             {
                                 Debug.Log("IsRightHit");
                                 player.transform.position = testHorizontalPosition + new Vector3(+1, 0, 0);
+                                BrickBreakerMethod();
+                            }
+                            else if (isFrontHit && (frontHit.collider.name == particleHitInformation.collider.name))
+                            {
+                                Debug.Log("isfrontHit");
+                                player.transform.position = testHorizontalPosition + new Vector3(0, 0, +1);
+                                BrickBreakerMethod();
+                            }
+                            else if (isBackHit)
+                            {
+                                Debug.Log("isBackHit");
+                                player.transform.position = testHorizontalPosition + new Vector3(0, 0, -1);
                                 BrickBreakerMethod();
                             }
                         }

@@ -13,6 +13,7 @@
 -r:"C:/Program Files/Unity (2017.1.0f3)/Editor/Data/UnityExtensions/Unity/Timeline/RuntimeEditor/UnityEngine.Timeline.dll"
 -r:"C:/Program Files/Unity (2017.1.0f3)/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll"
 -r:"C:/Program Files/Unity (2017.1.0f3)/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll"
+-r:"C:/Program Files/Unity (2017.1.0f3)/Editor/Data\Managed/Mono.Cecil.dll"
 -define:UNITY_5_3_OR_NEWER
 -define:UNITY_5_4_OR_NEWER
 -define:UNITY_5_5_OR_NEWER
@@ -99,6 +100,7 @@
 -define:UNITY_PRO_LICENSE
 -define:UNITY_HAS_GOOGLEVR
 Assets/Scripts/BrickBreaker.cs
+Assets/Scripts/Camera/TouchCamera.cs
 Assets/Scripts/CameraMovement.cs
 Assets/Scripts/ChangeCanvasScript.cs
 Assets/Scripts/CollectionAndMonster.cs

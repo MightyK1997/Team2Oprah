@@ -26,7 +26,7 @@ public class ShowHealthBar : MonoBehaviour {
     {
         healthSlider = GameObject.Find("HealthBarImage");
         healthSliderImage = healthSlider.GetComponent<Image>();
-        if (OnDestroyScript.battery != 0)
+        if (OnDestroyScript.battery >= 0)
         {
             Debug.Log("In If");
             if ((OnDestroyScript.battery % 10 == 0))

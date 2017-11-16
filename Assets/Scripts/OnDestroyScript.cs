@@ -24,7 +24,7 @@ public class OnDestroyScript : MonoBehaviour {
 
     private void OnDestroy()
     {
-        battery -= 1;
+        battery -= 20;
 
         foreach (var item in allCubes)
         {

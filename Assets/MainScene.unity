@@ -10936,7 +10936,7 @@ Light:
   serializedVersion: 8
   m_Type: 1
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 0.5
+  m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -10983,7 +10983,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 195250735}
   m_LocalRotation: {x: 0.4784631, y: 0.044830807, z: -0.0010794306, w: 0.8769619}
-  m_LocalPosition: {x: -1529, y: -2993, z: 8308}
+  m_LocalPosition: {x: -2.8, y: 30.6, z: -19.6}
   m_LocalScale: {x: 0.8814893, y: 0.88148934, z: 0.88148934}
   m_Children: []
   m_Father: {fileID: 0}

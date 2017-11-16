@@ -19,15 +19,14 @@ public class PlayerControlLeft : MonoBehaviour
                 Ray testRay = new Ray(testVector, Vector3.left);
                 RaycastHit testRayCastHit;
                 bool testIsHit = Physics.Raycast(testRay, out testRayCastHit);
-                if (testIsHit)
+
+                if (testRayCastHit.distance > 1 || !testIsHit)
                 {
-                    if (testRayCastHit.distance > 1)
-                    {
-                        animController = player.GetComponent<Animator>();
-                        animController.SetTrigger("PlayerWalking");
-                        player.transform.position = testVector + new Vector3(-1, 0, 0);
-                    }
+                    animController = player.GetComponent<Animator>();
+                    animController.SetTrigger("PlayerWalking");
+                    player.transform.position = testVector + new Vector3(-1, 0, 0);
                 }
+                
             }
             else if (hit.distance > 1)
             {

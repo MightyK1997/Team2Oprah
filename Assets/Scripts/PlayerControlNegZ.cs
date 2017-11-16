@@ -21,15 +21,15 @@ public class PlayerControlNegZ : MonoBehaviour {
                 Ray testRay = new Ray(testVector, Vector3.forward);
                 RaycastHit testRayCastHit;
                 bool testIsHit = Physics.Raycast(testRay, out testRayCastHit);
-                if (testIsHit)
+                    Debug.Log("IsHit");
+                if (testRayCastHit.distance > 1 || !testIsHit)
                 {
-                    if (testRayCastHit.distance > 1)
-                    {
-                        animController = player.GetComponent<Animator>();
-                        animController.SetTrigger("PlayerWalking");
-                        player.transform.position = testVector + new Vector3(0, 0, 1);
-                    }
+                    Debug.Log("Move");
+                    animController = player.GetComponent<Animator>();
+                    animController.SetTrigger("PlayerWalking");
+                    player.transform.position = testVector + new Vector3(0, 0, 1);
                 }
+                
             }
             else if (hit.distance > 1)
             {

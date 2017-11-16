@@ -28,7 +28,6 @@ public class ShowHealthBar : MonoBehaviour {
         healthSliderImage = healthSlider.GetComponent<Image>();
         if (OnDestroyScript.battery >= 0)
         {
-            Debug.Log("In If");
             if ((OnDestroyScript.battery % 10 == 0))
             {
                 string spriteName = "MainBar" + (OnDestroyScript.battery / 10).ToString();
@@ -38,7 +37,6 @@ public class ShowHealthBar : MonoBehaviour {
         else
         {
             mCanvas = microCanvas.GetComponent<Canvas>();
-            Debug.Log("In Else");
             mCanvas.enabled = true;
             SkinsPanel.SetActive(false);
             MoneyPanel.SetActive(false);

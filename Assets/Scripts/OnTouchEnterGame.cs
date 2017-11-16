@@ -19,6 +19,7 @@ public class OnTouchEnterGame : MonoBehaviour {
                 if (Input.GetTouch(i).phase == TouchPhase.Began)
                 {
                     SceneManager.LoadScene("MainScene");
+                    OnDestroyScript.battery = 100;
                 }
             }
         }

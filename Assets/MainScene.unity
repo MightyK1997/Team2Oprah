@@ -60089,6 +60089,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moneyText: {fileID: 1815564922}
+  moneyText2: {fileID: 1685057930}
 --- !u!4 &1021038565
 Transform:
   m_ObjectHideFlags: 0

@@ -2,19 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ShowTheOriginalScreen : MonoBehaviour {
 
     Canvas[] canvasList;
     public Canvas UICanvas;
     public Canvas microCanvas;
+    public GameObject energyPanel;
 
     // Use this for initialization
-    void Start () {
-	}
+    void Start()
+    {
+    }
 
     // Update is called once per frame
-    public void OnClick () {
+    public void OnClick()
+    {
         canvasList = Canvas.FindObjectsOfType<Canvas>();
         foreach (var item in canvasList)
         {
@@ -28,6 +32,10 @@ public class ShowTheOriginalScreen : MonoBehaviour {
             {
                 microCanvas = item.GetComponent<Canvas>();
             }
+        }
+        if (energyPanel.activeSelf)
+        {
+            SceneManager.LoadScene("StartScene");
         }
         microCanvas.enabled = false;
         UICanvas.enabled = true;

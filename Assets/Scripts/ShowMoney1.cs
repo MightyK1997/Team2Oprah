@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShowSkins : MonoBehaviour {
+public class ShowMoney1 : MonoBehaviour {
 
     public GameObject EnergyPanel;
     public GameObject SkinsPanel;
@@ -12,14 +12,14 @@ public class ShowSkins : MonoBehaviour {
     void Start()
     {
         //skinsPanel = GameObject.Find("SkinsPanel");
-        SkinsPanel.SetActive(false);
+        MoneyPanel.SetActive(false);
     }
 
     // Update is called once per frame
     public void OnClick()
     {
+        SkinsPanel.SetActive(false);
         EnergyPanel.SetActive(false);
-        MoneyPanel.SetActive(false);
-        SkinsPanel.SetActive(true);
+        MoneyPanel.SetActive(true);
     }
 }

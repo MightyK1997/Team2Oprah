@@ -36,6 +36,7 @@ public class ShowTheOriginalScreen : MonoBehaviour {
         if (energyPanel.activeSelf)
         {
             SceneManager.LoadScene("StartScene");
+            OnDestroyScript.battery = 100;
         }
         microCanvas.enabled = false;
         UICanvas.enabled = true;

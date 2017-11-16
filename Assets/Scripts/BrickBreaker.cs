@@ -27,6 +27,7 @@ public class BrickBreaker : MonoBehaviour {
     void Update() {
         if (particle.layer == 8)
         {
+            MiddleFunction();
             if (Input.touchCount > 0)
             {
                 for (int i = 0; i < Input.touchCount; i++)
@@ -280,5 +281,15 @@ public class BrickBreaker : MonoBehaviour {
             SoundManager.instance.playMusic(brickBreakingClip);
             brickHealth = 30;
         }
+    }
+
+    void MiddleFunction()
+    {
+        E_Wait();
+    }
+
+    IEnumerator E_Wait()
+    {
+        yield return new WaitForSeconds(0.1f);
     }
 }
